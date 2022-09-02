@@ -30,12 +30,8 @@ def create_board(sessao, nome, descricao):
 	if response.status_code == 200:
 		data = response.json()
 
-		print('O quadro foi criado:')
-
 		print(f'Nome: {data["name"]}')
 		print(f'Descrição: {data["desc"]}')
-		print(f'URL: {data["url"]}')
-		print(f'ID: {data["id"]}')
 	else:
 		print('Não foi possível criar o quadro')
 
@@ -54,3 +50,20 @@ def create_list(sessao, nome, quadro):
 		print(f'ID da lista: {data["id"]}')
 	else:
 		print('Não foi possível adicionar a lista')
+
+def create_card(sessao, nome, descricao, lista):
+	parameters = {
+		'name': nome,
+		'desc': descricao,
+		'idList': lista
+	}
+
+	response = sessao.post('https://api.trello.com/1/cards', params=parameters)
+
+	if response.status_code == 200:
+		data = response.json()
+
+		print(f'Nome do cartão: {data["name"]}')
+		print(f'Descrição do cartão: {data["desc"]}')
+	else:
+		print('Não foi possível adicionar o cartão')

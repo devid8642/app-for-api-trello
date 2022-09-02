@@ -36,22 +36,3 @@ def create_board(sessao, nome, descricao):
 		print(f'Descrição: {data["desc"]}')
 		print(f'URL: {data["url"]}')
 		print(f'ID: {data["id"]}')
-
-if __name__ == '__main__':
-
-	load_dotenv()
-
-	api_key = os.environ.get('API_KEY')
-	token = os.environ.get('TOKEN')
-
-	# Criando uma sessão para enviar requisições com os mesmos parâmetros
-
-	session = requests.Session()
-
-	session.params = {
-		'key': api_key,
-		'token': token
-	}
-
-	create_board(session, 'Novo quadro', 'kkkkkk')
-	push_boards(session)

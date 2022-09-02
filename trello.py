@@ -32,6 +32,24 @@ def read_lists(sessao, quadro):
 		for lst in data:
 			print(f'Nome: {lst["name"]}')
 			print(f'ID: {lst["id"]}')
+	else:
+		print('Não foi possível acessar as listas')
+
+def read_cards(sessao, lista):
+	parameters = {
+		'field': ['name', 'id']
+	}
+
+	response = sessao.get(f'https://api.trello.com/1/lists/{lista}/cards', params=parameters)
+
+	if response.status_code == 200:
+		data = response.json()
+
+		for crt in data:
+			print(f'Nome do cartão: {crt["name"]}')
+			print(f'ID: {crt["id"]}')
+	else:
+		print('Não foi possível acessar os cartões')
 
 def create_board(sessao, nome, descricao):
 	parameters = {

@@ -2,7 +2,7 @@ import os
 import requests
 from dotenv import load_dotenv
 
-def push_boards(sessao):
+def read_boards(sessao):
 	parameters = {
 		'field': ['name', 'url']
 	}
@@ -18,6 +18,20 @@ def push_boards(sessao):
 			print(f'ID: {board["id"]}')
 	else:
 		print('Ocorreu um erro na requisição')
+
+def read_lists(sessao, quadro):
+	parameters = {
+		'field': ['name', 'id']
+	}
+
+	response = sessao.get(f'https://api.trello.com/1/boards/{quadro}/lists', params=parameters)
+
+	if response.status_code == 200:
+		data = response.json()
+
+		for lst in data:
+			print(f'Nome: {lst["name"]}')
+			print(f'ID: {lst["id"]}')
 
 def create_board(sessao, nome, descricao):
 	parameters = {

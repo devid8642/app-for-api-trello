@@ -36,3 +36,21 @@ def create_board(sessao, nome, descricao):
 		print(f'Descrição: {data["desc"]}')
 		print(f'URL: {data["url"]}')
 		print(f'ID: {data["id"]}')
+	else:
+		print('Não foi possível criar o quadro')
+
+def create_list(sessao, nome, quadro):
+	parameters = {
+		'name': nome,
+		'idBoard': quadro
+	}
+
+	response = sessao.post('https://api.trello.com/1/lists', params=parameters)
+
+	if response.status_code == 200:
+		data = response.json()
+
+		print(f'Nome da lista: {data["name"]}')
+		print(f'ID da lista: {data["id"]}')
+	else:
+		print('Não foi possível adicionar a lista')
